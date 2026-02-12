@@ -18,6 +18,18 @@ import Blank from "./pages/Blank";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Home from "./pages/Dashboard/Home";
+import CoursesPage from "./pages/Courses/CoursesPage";
+import VocabularyLibraryPage from "./pages/Vocabulary/VocabularyLibraryPage";
+import VocabularyPage from "./pages/Vocabulary/VocabularyPage";
+import BookLibraryPage from "./pages/Books/BookLibraryPage";
+import CourseCurriculumPage from "./pages/Courses/CourseCurriculumPage";
+import CreateDeckPage from "./pages/Vocabulary/CreateDeckPage";
+import BookReaderPage from "./pages/Books/BookReaderPage";
+import WordUsagePage from "./pages/WordUsage/WordUsagePage";
+import LessonFeedbackPage from "./pages/Grammar/LessonFeedbackPage";
+import ListeningPracticePage from "./pages/Listening/ListeningPracticePage";
+import ReadingPage from "./pages/Reading/ReadingPage";
+import WritingChallengePage from "./pages/Writing/WritingChallengePage";
 
 export default function App() {
   return (
@@ -30,6 +42,18 @@ export default function App() {
             <Route index path="/" element={<Home />} />
 
             {/* Others Page */}
+            <Route path="/courses" element={<CoursesPage />} />
+            <Route path="/courses/:courseId" element={<CourseCurriculumPage />} />
+            <Route path="/courses/:courseId/grammar" element={<LessonFeedbackPage />} />
+            <Route path="/courses/:courseId/listening" element={<ListeningPracticePage />} />
+            <Route path="/courses/:courseId/reading" element={<ReadingPage />} />
+            <Route path="/courses/:courseId/writing" element={<WritingChallengePage />} />
+            <Route path="/vocabulary" element={<VocabularyLibraryPage />} />
+            <Route path="/vocabulary/create" element={<CreateDeckPage />} />
+            <Route path="/vocabulary/study/:deckId" element={<VocabularyPage />} />
+            <Route path="/book-library" element={<BookLibraryPage />} />
+            <Route path="/book-library/:bookId" element={<BookReaderPage />} />
+            <Route path="/word-usage" element={<WordUsagePage />} />
             <Route path="/profile" element={<UserProfiles />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/blank" element={<Blank />} />

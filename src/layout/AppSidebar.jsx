@@ -17,7 +17,7 @@ import {
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 import SidebarWidget from "./SidebarWidget";
-import { BookOpenText, Calendar, CircleUser, LayoutGrid, WalletCards } from "lucide-react";
+import { Book, BookOpenText, Calendar, CircleUser, Languages, LayoutGrid, WalletCards } from "lucide-react";
 
 
 const navItems = [
@@ -27,20 +27,35 @@ const navItems = [
     path: "/",
   },
   {
-    name: "Courses",
     icon: <BookOpenText />,
-    subItems: [
-      { name: "Grammar", path: "/courses/grammar", pro: true },
-      { name: "Listening", path: "/courses/listening", pro: true },
-      { name: "Reading", path: "/courses/reading", pro: true },
-      { name: "Writing", path: "/courses/writing", pro: true },
-    ],
+    name: "Courses",
+    path: "/courses",
   },
   {
     icon: <WalletCards />,
     name: "Vocabulary",
     path: "/vocabulary",
   },
+  {
+    icon: <Book />,
+    name: "Book Library",
+    path: "/book-library",
+  },
+  {
+    icon: <Languages />,
+    name: "Word Usage",
+    path: "/word-usage",
+  },
+  // {
+  //   name: "Courses",
+  //   icon: <BookOpenText />,
+  //   subItems: [
+  //     { name: "Grammar", path: "/courses/grammar", pro: false },
+  //     { name: "Listening", path: "/courses/listening", pro: false },
+  //     { name: "Reading", path: "/courses/reading", pro: false },
+  //     { name: "Writing", path: "/courses/writing", pro: false },
+  //   ],
+  // },
   {
     icon: <Calendar />,
     name: "Calendar",
@@ -112,7 +127,7 @@ const AppSidebar = () => {
 
   // const isActive = (path: string) => location.pathname === path;
   const isActive = useCallback(
-    (path) => location.pathname === path,
+    (path) => (location.pathname.includes(path) && path !== "/") || location.pathname === path,
     [location.pathname]
   );
 
