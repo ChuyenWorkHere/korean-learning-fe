@@ -30,13 +30,13 @@ const WordDayCard = ({
             {level}
           </span>
           
-          <h4 className="text-5xl font-black text-text-main mb-2 tracking-tight">
+          <h4 className="text-5xl font-black text-text-main mb-2 tracking-tight dark:text-white">
             {koreanWord}
           </h4>
           <p className="text-text-muted font-medium mb-1 text-lg">
             {romanization}
           </p>
-          <p className="text-2xl font-bold text-text-main mb-8">
+          <p className="text-2xl font-bold text-text-main mb-8 dark:text-white">
             {meaning}
           </p>
 

@@ -6,7 +6,7 @@ import { TrendingUp } from 'lucide-react';
 const StatCard = ({ icon: Icon, label, value, colorTheme }) => {
   return (
     <div className="flex min-w-[180px] flex-1 flex-col gap-2 rounded-xl p-6 border border-[#e7e3cf] dark:border-[#3d3821] bg-white dark:bg-[#2d2916] shadow-sm">
-      <div className="flex items-center gap-2 text-[#9a8d4c]">
+      <div className="flex items-center gap-2 text-[#9a8d4c] dark:text-[#c9b97d]">
         <Icon className={`w-8 h-8 ${colorTheme}`} />
         <p className="text-sm font-medium leading-normal">{label}</p>
       </div>

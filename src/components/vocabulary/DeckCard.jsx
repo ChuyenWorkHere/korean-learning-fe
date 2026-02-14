@@ -1,17 +1,17 @@
 // src/components/library/DeckCard.jsx
 import React from 'react';
-import { Play, Bookmark, CheckSquare } from 'lucide-react';
+import { Play, Bookmark, CheckSquare, SquarePen } from 'lucide-react';
 
-const DeckCard = ({ 
-  title, 
-  description, 
+const DeckCard = ({
+  title,
+  description,
   level,          // "Beginner", "Intermediate", "Advanced"
-  totalWords, 
-  learnedWords, 
+  totalWords,
+  learnedWords,
   icon: Icon,     // Lucide Icon Component
   iconColorClass, // Class màu nền icon (VD: "bg-blue-400/20 text-blue-400")
   onStudy,
-  onBookmark
+  onEdit,
 }) => {
   // Tính phần trăm
   const progress = Math.round((learnedWords / totalWords) * 100);
@@ -19,7 +19,7 @@ const DeckCard = ({
 
   // Màu badge theo level
   const getLevelColor = (lvl) => {
-    switch(lvl) {
+    switch (lvl) {
       case 'Intermediate': return 'bg-orange-400/20 text-orange-400';
       case 'Advanced': return 'bg-red-400/20 text-red-400';
       default: return 'bg-primary/20 text-primary'; // Beginner
@@ -33,8 +33,8 @@ const DeckCard = ({
         <div className={`w-16 h-16 rounded-xl flex items-center justify-center ${iconColorClass}`}>
           <Icon className="w-8 h-8" />
         </div>
-        <button onClick={onBookmark} className="text-[#c9c092] hover:text-primary transition-colors">
-          <Bookmark className="w-6 h-6" />
+        <button onClick={onEdit} className="text-[#c9c092] hover:text-primary transition-colors">
+          <SquarePen className="w-6 h-6" />
         </button>
       </div>
 
@@ -59,21 +59,20 @@ const DeckCard = ({
             {learnedWords}/{totalWords} words
           </span>
         </div>
-        
+
         <div className="w-full h-2 bg-[#484223]/30 rounded-full overflow-hidden mb-5">
-          <div 
-            className={`h-full transition-all duration-500 ${isCompleted ? 'bg-green-500' : 'bg-primary'}`} 
+          <div
+            className={`h-full transition-all duration-500 ${isCompleted ? 'bg-green-500' : 'bg-primary'}`}
             style={{ width: `${progress}%` }}
           ></div>
         </div>
 
-        <button 
+        <button
           onClick={onStudy}
-          className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 group-hover:text-background-dark ${
-            isCompleted 
-            ? 'bg-[#484223] group-hover:bg-green-500 text-white' 
+          className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 group-hover:text-background-dark ${isCompleted
+            ? 'bg-[#484223] group-hover:bg-green-500 text-white'
             : 'bg-[#484223] group-hover:bg-primary text-white'
-          }`}
+            }`}
         >
           {isCompleted ? <CheckSquare className="w-4 h-4" /> : <Play className="w-4 h-4" />}
           {isCompleted ? 'Review Deck' : 'Study Now'}

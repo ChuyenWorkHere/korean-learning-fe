@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ChevronLeftIcon, EyeCloseIcon, EyeIcon } from "../../icons";
 import Label from "../form/Label";
 import Input from "../form/input/InputField";
@@ -8,6 +8,52 @@ import Checkbox from "../form/input/Checkbox";
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+
+  // State form data
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: ""
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!isChecked) {
+      setError("You must agree to the terms.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+
+    try {
+      // Mapping dữ liệu frontend sang backend SignUpRequest
+      // Giả sử backend cần: { name, email, password } hoặc { firstName, lastName, email, password }
+      // Bạn cần chỉnh lại cho khớp với SignUpRequest DTO của Java
+      const signUpRequest = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password
+      };
+
+      await authService.signup(signUpRequest);
+      navigate("/signin"); // Chuyển sang trang đăng nhập sau khi đăng ký thành công
+    } catch (err) {
+      // Xử lý lỗi từ backend trả về (ví dụ email trùng)
+      setError(err.response?.data?.message || "Registration failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col flex-1 w-full overflow-y-auto lg:w-1/2 no-scrollbar">
       <div className="w-full max-w-md mx-auto mb-5 sm:pt-10">
@@ -82,8 +128,9 @@ export default function SignUpForm() {
                 </span>
               </div>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="space-y-5">
+                {error && <div className="text-red-500 text-sm text-center">{error}</div>}
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   {/* <!-- First Name --> */}
                   <div className="sm:col-span-1">
@@ -93,8 +140,11 @@ export default function SignUpForm() {
                     <Input
                       type="text"
                       id="fname"
-                      name="fname"
+                      name="firstName" // Quan trọng: name phải khớp với state
                       placeholder="Enter your first name"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                   {/* <!-- Last Name --> */}
@@ -105,8 +155,11 @@ export default function SignUpForm() {
                     <Input
                       type="text"
                       id="lname"
-                      name="lname"
+                      name="lastName"
                       placeholder="Enter your last name"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -120,6 +173,9 @@ export default function SignUpForm() {
                     id="email"
                     name="email"
                     placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                   />
                 </div>
                 {/* <!-- Password --> */}
@@ -131,6 +187,10 @@ export default function SignUpForm() {
                     <Input
                       placeholder="Enter your password"
                       type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      required
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
@@ -164,8 +224,8 @@ export default function SignUpForm() {
                 </div>
                 {/* <!-- Button --> */}
                 <div>
-                  <button className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600">
-                    Sign Up
+                  <button disabled={loading} className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600 disabled:opacity-50">
+                    {loading ? "Creating account..." : "Sign Up"}
                   </button>
                 </div>
               </div>
