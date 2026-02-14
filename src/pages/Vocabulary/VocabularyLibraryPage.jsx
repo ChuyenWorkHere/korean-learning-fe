@@ -62,6 +62,7 @@ const VocabularyLibraryPage = () => {
                 icon={deck.icon}
                 iconColorClass={deck.color}
                 onStudy={() => navigate(`/vocabulary/study/${deck.id}`)}
+                onEdit={() => navigate(`/vocabulary/edit/${deck.id}`)}
               />
             ))}
           </div>
