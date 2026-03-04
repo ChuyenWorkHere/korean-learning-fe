@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router";
 import SignIn from "./pages/AuthPages/SignIn";
 import SignUp from "./pages/AuthPages/SignUp";
 import NotFound from "./pages/OtherPage/NotFound";
-import UserProfiles from "./pages/UserProfiles";
 import Videos from "./pages/UiElements/Videos";
 import Images from "./pages/UiElements/Images";
 import Alerts from "./pages/UiElements/Alerts";
@@ -26,19 +25,19 @@ import CourseCurriculumPage from "./pages/Courses/CourseCurriculumPage";
 import CreateDeckPage from "./pages/Vocabulary/CreateDeckPage";
 import BookReaderPage from "./pages/Books/BookReaderPage";
 import WordUsagePage from "./pages/WordUsage/WordUsagePage";
-import LessonFeedbackPage from "./pages/Grammar/LessonFeedbackPage";
-import ListeningPracticePage from "./pages/Listening/ListeningPracticePage";
-import ReadingPage from "./pages/Reading/ReadingPage";
-import WritingChallengePage from "./pages/Writing/WritingChallengePage";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UserProfilePage from "./pages/Profile/UserProfilePage";
-import LessonBuilder from "./pages/Admin/LessonBuilder";
-import CourseManager from "./pages/Admin/CourseManager";
-import ListeningBuilder from "./pages/Admin/ListeningBuilder";
-import WritingBuilder from "./pages/Admin/WritingBuilder";
-import ReadingBuilder from "./pages/Admin/ReadingBuilder";
-import SpeakingBuilder from "./pages/Admin/SpeakingBuilder";
+import WritingBuilderPage from "./pages/Admin/WritingBuilderPage";
+import GrammarBuilderPage from "./pages/Admin/GrammarBuilderPage";
+import ListeningBuilderPage from "./pages/Admin/ListeningBuilderPage";
+import ReadingBuilderPage from "./pages/Admin/ReadingBuilderPage";
+import SpeakingBuilderPage from "./pages/Admin/SpeakingBuilderPage";
+import UnitBuilderPage from "./pages/Admin/UnitBuilderPage";
+import AdminCoursesDashboard from "./pages/Admin/AdminCoursesDashboard";
+import { Toaster } from "react-hot-toast";
+import LessonWrapperPage from "./pages/LessonWrapperPage";
+import ListeningPracticePage from "./pages/Lessons/Listening/ListeningPracticePage";
 
 export default function App() {
   return (
@@ -46,6 +45,12 @@ export default function App() {
       <AuthProvider>
         <Router>
           <ScrollToTop />
+          <Toaster
+            position="bottom-right"
+            containerStyle={{
+              zIndex: 99999,
+            }}
+          />
           <Routes>
             {/* Dashboard Layout */}
             <Route element={<ProtectedRoute />}>
@@ -55,10 +60,8 @@ export default function App() {
                 {/* Others Page */}
                 <Route path="/courses" element={<CoursesPage />} />
                 <Route path="/courses/:courseId" element={<CourseCurriculumPage />} />
-                <Route path="/courses/:courseId/grammar" element={<LessonFeedbackPage />} />
-                <Route path="/courses/:courseId/listening" element={<ListeningPracticePage />} />
-                <Route path="/courses/:courseId/reading" element={<ReadingPage />} />
-                <Route path="/courses/:courseId/writing" element={<WritingChallengePage />} />
+                <Route path="/lessons/:lessonId" element={<LessonWrapperPage />} />
+                <Route path="/lessons/:lessonId/listening" element={<ListeningPracticePage />} />
                 <Route path="/vocabulary" element={<VocabularyLibraryPage />} />
                 <Route path="/vocabulary/create" element={<CreateDeckPage />} />
                 <Route path="/vocabulary/study/:deckId" element={<VocabularyPage />} />
@@ -69,12 +72,13 @@ export default function App() {
                 <Route path="/profile" element={<UserProfilePage />} />
 
                 {/* Admin Pages TEST */}
-                <Route path="/admin/course-manage" element={<CourseManager />} />
-                <Route path="/admin/grammar-builder" element={<LessonBuilder />} />
-                <Route path="/admin/listening-builder" element={<ListeningBuilder />} />
-                <Route path="/admin/writing-builder" element={<WritingBuilder />} />
-                <Route path="/admin/reading-builder" element={<ReadingBuilder />} />
-                <Route path="/admin/speaking-builder" element={<SpeakingBuilder />} />
+                <Route path="/admin/courses" element={<AdminCoursesDashboard />} />
+                <Route path="/admin/courses/:courseId/units" element={<UnitBuilderPage />} />
+                <Route path="/admin/courses/builder/grammar/:lessonId" element={<GrammarBuilderPage />} />
+                <Route path="/admin/courses/builder/listening/:lessonId" element={<ListeningBuilderPage />} />
+                <Route path="/admin/courses/builder/writing/:lessonId" element={<WritingBuilderPage />} />
+                <Route path="/admin/courses/builder/reading/:lessonId" element={<ReadingBuilderPage />} />
+                <Route path="/admin/courses/builder/speaking/:lessonId" element={<SpeakingBuilderPage />} />
 
 
                 <Route path="/calendar" element={<Calendar />} />

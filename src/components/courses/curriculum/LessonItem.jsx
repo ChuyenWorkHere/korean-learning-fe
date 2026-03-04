@@ -1,16 +1,16 @@
 // src/components/curriculum/LessonItem.jsx
 import React from 'react';
 import { CheckCircle, PlayCircle, Lock } from 'lucide-react';
+import { PROGRESS_STATUS } from '../../admin/constants';
 
 const LessonItem = ({ 
   title, 
-  subtitle, // Ví dụ: "10 min • Completed"
-  status = "locked", // "completed" | "active" | "locked"
+  subtitle,
+  status = PROGRESS_STATUS.LOCKED,
   onAction 
 }) => {
   
-  // 1. Trạng thái HOÀN THÀNH (Completed)
-  if (status === "completed") {
+  if (status === PROGRESS_STATUS.COMPLETED) {
     return (
       <div className="flex items-center gap-4 bg-slate-50 dark:bg-white/5 px-6 py-4 rounded-xl border border-slate-200 dark:border-white/10 opacity-75">
         <div className="text-green-500 flex items-center justify-center rounded-full bg-green-500/10 shrink-0 size-12">
@@ -30,8 +30,7 @@ const LessonItem = ({
     );
   }
 
-  // 2. Trạng thái ĐANG HỌC (Active)
-  if (status === "active") {
+  if (status === PROGRESS_STATUS.IN_PROGRESS || status === PROGRESS_STATUS.NOT_STARTED) {
     return (
       <div className="flex items-center gap-4 bg-white dark:bg-[#393628] px-6 py-4 rounded-xl border-2 border-primary shadow-xl shadow-primary/10 relative overflow-hidden group">
         <div className="absolute left-0 top-0 h-full w-1 bg-primary"></div>
@@ -55,7 +54,6 @@ const LessonItem = ({
     );
   }
 
-  // 3. Trạng thái KHÓA (Locked) - Mặc định
   return (
     <div className="flex items-center gap-4 bg-slate-50/50 dark:bg-white/[0.02] px-6 py-4 rounded-xl border border-dashed border-slate-300 dark:border-white/5 grayscale">
       <div className="text-slate-400 dark:text-white/20 flex items-center justify-center rounded-full bg-slate-200 dark:bg-white/5 shrink-0 size-12">
@@ -65,7 +63,7 @@ const LessonItem = ({
         <p className="text-slate-400 dark:text-white/30 text-base font-bold">{title}</p>
         <p className="text-slate-400 dark:text-white/20 text-sm">{subtitle}</p>
       </div>
-      <div className="px-4 py-2 opacity-0 select-none">Locked</div> {/* Placeholder để giữ layout */}
+      <div className="px-4 py-2 opacity-0 select-none">Locked</div>
     </div>
   );
 };

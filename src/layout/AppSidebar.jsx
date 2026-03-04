@@ -88,6 +88,11 @@ const navItems = [
 
 const othersItems = [
   {
+    icon: <LayoutGrid />,
+    name: "Dashboard",
+    path: "/admin/courses",
+  },
+  {
     icon: <PieChartIcon />,
     name: "Charts",
     subItems: [
@@ -366,7 +371,7 @@ const AppSidebar = () => {
                   }`}
               >
                 {isExpanded || isHovered || isMobileOpen ? (
-                  "Others"
+                  "Admin"
                 ) : (
                   <HorizontaLDots />
                 )}
