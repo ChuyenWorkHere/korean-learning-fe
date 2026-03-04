@@ -5,12 +5,7 @@ const CourseHeader = ({ title, description, progress, image, onContinue }) => {
   return (
     <div className="bg-white dark:bg-[#2a2718] rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-white/5 mb-10">
       <div className="flex flex-col md:flex-row">
-        {/* Image */}
-        <div 
-          className="w-full md:w-1/2 bg-center bg-no-repeat aspect-video bg-cover" 
-          style={{ backgroundImage: `url("${image}")` }}
-        ></div>
-        
+       
         {/* Content */}
         <div className="flex flex-col p-8 md:p-10 justify-center flex-1">
           <div className="flex flex-col gap-2 mb-6">
